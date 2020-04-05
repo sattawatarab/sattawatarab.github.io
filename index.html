@@ -1,18 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>vector tile by  Bannk Bank</title>
-  <link rel='stylesheet' href='https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css'><link rel="stylesheet" href="./style.css">
-
-</head>
+<meta charset="utf-8" />
+<title>Covid-19</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  * {
+  box-sizing: border-box;
+}
+#panel {
+			position: absolute;
+			top: 10px;
+			left: 50px;
+		}
+.btn-map {
+			height: 40px;
+			background: #7b98bc;
+			color: white;
+			border: 2px solid white;
+			border-radius: 4px;
+			font-size: 14px;
+			opacity: 0.9;
+			font-weight: bold;
+		}
+</style>
 <body>
-<!-- partial:index.partial.html -->
-<div id="map" class="map">
-  <pre id="info"/>
-  </div>
-<!-- partial -->
-  <script src='https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js'></script><script  src="./script.js"></script>
+<div id="map"></div>
+<div id="panel">
+  <button id="showWms" class="btn-map">show data</button>
+  <button id="hideWms" class="btn-map">legend</button>
+  <button id="showCountry" class="btn-map">Thailand</button>
+</div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0dGF3YXRhcmFiIiwiYSI6ImNpcjMxN3cxcTAwMXFmam5tNGtuY2VjbXcifQ.oQVD5NNye6tRSqiORiLRCw';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        zoom: 2,
+        center: [99.00, 10.00]
+    });
+
+    var btnShowWms = document.getElementById('showWms');
+    var btnHideWms = document.getElementById('hideWms');
+    var showCountry = document.getElementById('showCountry');
+
+    btnShowWms.onclick = function() {
+        var bb = map.addSource('wms-test-source', {
+            'type': 'raster',
+            'tiles': [
+                'https://kathumap.i-bitz.co.th/geoserver/KathuMap/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=corona'
+            ],
+            'tileSize': 256
+        });
+        map.addLayer(
+            {
+                'id': 'wms-test-layer',
+                'type': 'raster',
+                'source': 'wms-test-source',
+                'paint': {}
+            },
+            'aeroway-line'
+        );
+    };
+    
+</script>
 
 </body>
 </html>
