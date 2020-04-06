@@ -3,9 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <title>Covid-19</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
 <style>
 	body { margin: 0; padding: 0; }
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -31,41 +37,181 @@
 <body>
 <div id="map"></div>
 <div id="panel">
-  <button id="showWms" class="btn-map">show data</button>
-  <button id="hideWms" class="btn-map">legend</button>
-  <button id="showCountry" class="btn-map">Thailand</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">ระบบติดตาม corona-19</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">คำอธิบาย</button>
 </div>
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">จำนวนผู้ติดเชื้อ covid-19</h4>
+        </div>
+        <div class="modal-body">
+          <p>ระบบติดตามผู้ป่วย covid-19</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">จำนวนผู้ติดเชื้อ covid-19</h4>
+        </div>
+        <div class="modal-body">
+          <p><div class="mypanel"></div></p>
+          <p><div class="mypanel"></div></p>
+          <p><div class="mypanel"></div></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
 <script>
+  $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `Date: ${data.features[1].properties.total} + ${data.features[2].properties.total}<br>
+                    Time: ${data.features[1].properties.total}<br>
+                    Unix time: ${data.features[1].properties.total}`
+                    
+        
+        $(".mypanel").html(text);
+    });
+
 	mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0dGF3YXRhcmFiIiwiYSI6ImNpcjMxN3cxcTAwMXFmam5tNGtuY2VjbXcifQ.oQVD5NNye6tRSqiORiLRCw';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v10',
-        zoom: 2,
-        center: [99.00, 10.00]
+        center: [100.04, 10.907],
+        zoom: 2
     });
 
-    var btnShowWms = document.getElementById('showWms');
-    var btnHideWms = document.getElementById('hideWms');
-    var showCountry = document.getElementById('showCountry');
-
-    btnShowWms.onclick = function() {
-        var bb = map.addSource('wms-test-source', {
-            'type': 'raster',
-            'tiles': [
-                'https://kathumap.i-bitz.co.th/geoserver/KathuMap/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=corona'
-            ],
-            'tileSize': 256
+    map.on('load', function() {
+        // Add a source for the state polygons.
+        map.addSource('states', {
+        type: 'geojson',
+        data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson'
+        }
+        ),
+        map.addSource('states1', {
+        type: 'geojson',
+        data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson'
+        }),
+        map.addSource('states2', {
+        type: 'geojson',
+        data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson'
+        }),
+        map.addSource('states3', {
+        type: 'geojson',
+        data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson'
+        }),
+        map.addSource('states4', {
+        type: 'geojson',
+        data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson'
+        }),
+        map.addSource('states5', {
+        type: 'geojson',
+        data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson'
         });
-        map.addLayer(
-            {
-                'id': 'wms-test-layer',
-                'type': 'raster',
-                'source': 'wms-test-source',
-                'paint': {}
-            },
-            'aeroway-line'
-        );
-    };
+        
+
+        // Add a layer showing the state polygons.
+       map.addLayer(
+            // 'id': 'states-layer',
+            // 'type': 'fill',
+            // 'source': 'states',
+            // 'paint': {
+            //     'fill-color': 'rgba(200, 100, 240, 0.4)',
+            //     'fill-outline-color': 'rgba(200, 100, 240, 1)'
+            // }
+            
+            {'id': 'states-layer',
+            'type': 'circle',
+            'source': 'states',
+            'paint': {'circle-radius': 10,'circle-color': 'rgba(200, 100, 240, 0.0)'},
+            'filter': ["all", [">=", "total", 1]],
+            }
+    ),
+      map.addLayer(
+            {'id': 'states1-layer',
+            'type': 'circle',
+            'source': 'states1',
+            'paint': {'circle-radius': 5,'circle-color': 'rgba(200, 100, 240, 0.5)'},
+            'filter': ["all", [">", "total", 1], ["<=", "total", 50]],}
+      ),
+      map.addLayer(
+            {'id': 'states2-layer',
+            'type': 'circle',
+            'source': 'states2',
+            'paint': {'circle-radius': 12,'circle-color': 'rgba(200, 100, 240, 0.6)'},
+            'filter': ["all", [">", "total", 50], ["<=", "total", 500]],}
+    ),
+    map.addLayer(
+            {'id': 'states3-layer',
+            'type': 'circle',
+            'source': 'states3',
+            'paint': {'circle-radius': 18,'circle-color': 'rgba(200, 100, 240, 0.7)'},
+            'filter': ["all", [">", "total", 500], ["<=", "total", 5000]],}
+    ),
+    map.addLayer(
+            {'id': 'states4-layer',
+            'type': 'circle',
+            'source': 'states4',
+            'paint': {'circle-radius': 24,'circle-color': 'rgba(200, 100, 240, 0.7)'},
+            'filter': ["all", [">", "total", 5000], ["<=", "total", 50000]],}
+    ),
+    map.addLayer(
+            {'id': 'states5-layer',
+            'type': 'circle',
+            'source': 'states5',
+            'paint': {'circle-radius': 28,'circle-color': 'rgba(200, 100, 240, 0.8)'},
+            'filter': ["all", [">", "total", 50000]],}
+    );
+
+        // When a click event occurs on a feature in the states layer, open a popup at the
+        // location of the click, with description HTML from its properties.
+        map.on('click', 'states-layer', function(e) {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML('<b>จำนวนผู้ป่วย : </b> ' +e.features[0].properties.total +'<b> คน</b>'+ '<br/>' +'<b>ประเทศ : </b>' +e.features[0].properties.Country)
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the states layer.
+        map.on('mouseenter', 'states-layer', function() {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'states-layer', function() {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+
     
 </script>
 
