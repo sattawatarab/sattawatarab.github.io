@@ -33,6 +33,25 @@
 			opacity: 0.9;
 			font-weight: bold;
 		}
+  .column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+.column2 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 150px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 </style>
 <body>
 <div id="map"></div>
@@ -50,10 +69,24 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">ไวรัสโคโรนา 2019 (COVID-19)</h4>
+          <h4 class="modal-title">สถานการณ์ COVID-19</h4>
+          <p>ข้อมูลสะสมทั่วโลก</p>
         </div>
         <div class="modal-body">
-          <p>ไวรัสโคโรนา 2019 (COVID-19)</p>
+          <div class="row">
+            <div class="column2">
+              <p><div class="mypanel-10"></div></p>
+              <p><div class="mypanel-10"></div></p>
+              <p><div class="mypanel-10"></div></p>
+            </div>
+            <div class="column2">
+              <p><div class="mypanel-7"></div></p>
+              <p><div class="mypanel-8"></div></p>
+              <p><div class="mypanel-9"></div></p>
+            </div>
+            <p align = 'right'> ข้อมูลจาก : Johns Hopkins University &nbsp;&nbsp;&nbsp;</p>
+            <p align = 'right'> <a target="_blank" href="https://github.com/CSSEGISandData">https://github.com/CSSEGISandData</a> &nbsp;&nbsp;&nbsp;</p>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -74,12 +107,23 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">จำนวนผู้ติดเชื้อ covid-19</h4>
+          <h4 class="modal-title">สถานการณ์ COVID-19 ในประเทศไทย</h4>
+          <p>ข้อมูลสะสมในแต่ละวัน</p>
         </div>
         <div class="modal-body">
-          <p><div class="mypanel"></div></p>
-          <p><div class="mypanel"></div></p>
-          <p><div class="mypanel"></div></p>
+          <div class="row">
+            <div class="column">
+              <p><div class="mypanel-6"></div></p>
+              <p><div class="mypanel-4"></div></p>
+              <p><div class="mypanel-2"></div></p>
+            </div>
+            <div class="column">
+              <p><div class="mypanel-5"></div></p>
+              <p><div class="mypanel-3"></div></p>
+              <p><div class="mypanel-1"></div></p>
+            </div>
+            <p align = 'right'> แผนที่ข้อมูลรายจังหวัด &nbsp;&nbsp;&nbsp;</p>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -92,15 +136,103 @@
 </div>
 
 <script>
-  $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona&outputFormat=application%2Fjson', function(data) {
+  $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
         
-        var text = `Date: ${data.features[1].properties.total} + ${data.features[2].properties.total}<br>
-                    Time: ${data.features[1].properties.total}<br>
-                    Unix time: ${data.features[1].properties.total}`
+        var text = `วันที่ : ${data.features[0].properties.Date}<br>
+                    ผู้ป่วยสะสม : ${data.features[0].properties.total} คน<br>
+                    เสียชีวิต : ${data.features[0].properties.death} คน<br>
+                    รักษาหาย : ${data.features[0].properties.recove} คน`
                     
         
-        $(".mypanel").html(text);
+        $(".mypanel-1").html(text);
     });
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `วันที่ : ${data.features[1].properties.Date}<br>
+                    ผู้ป่วยสะสม : ${data.features[1].properties.total} คน<br>
+                    เสียชีวิต : ${data.features[1].properties.death} คน<br>
+                    รักษาหาย : ${data.features[1].properties.recove} คน`
+                    
+        
+        $(".mypanel-2").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `วันที่ : ${data.features[2].properties.Date}<br>
+                    ผู้ป่วยสะสม : ${data.features[2].properties.total} คน<br>
+                    เสียชีวิต : ${data.features[2].properties.death} คน<br>
+                    รักษาหาย : ${data.features[2].properties.recove} คน`
+                    
+        
+        $(".mypanel-3").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `วันที่ : ${data.features[3].properties.Date}<br>
+                    ผู้ป่วยสะสม : ${data.features[3].properties.total} คน<br>
+                    เสียชีวิต : ${data.features[3].properties.death} คน<br>
+                    รักษาหาย : ${data.features[3].properties.recove} คน`
+                    
+        
+        $(".mypanel-4").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `วันที่ : ${data.features[4].properties.Date}<br>
+                    ผู้ป่วยสะสม : ${data.features[4].properties.total} คน<br>
+                    เสียชีวิต : ${data.features[4].properties.death} คน<br>
+                    รักษาหาย : ${data.features[4].properties.recove} คน`
+                    
+        
+        $(".mypanel-5").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `วันที่ : ${data.features[5].properties.Date} <br>
+                    ผู้ป่วยสะสม : ${data.features[5].properties.total} คน<br>
+                    เสียชีวิต : ${data.features[5].properties.death} คน<br>
+                    รักษาหาย : ${data.features[5].properties.recove} คน`
+                    
+        
+        $(".mypanel-6").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-global&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `ผู้ป่วยสะสม : ${data.features[0].properties.total} คน`
+                    
+        
+        $(".mypanel-7").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-global&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `เสียชีวิต : ${data.features[0].properties.death}`
+                    
+        
+        $(".mypanel-8").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-global&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `รักษาหาย : ${data.features[0].properties.recover} คน`
+                    
+        
+        $(".mypanel-9").html(text);
+    });
+
+    $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3Acorona-total-thai&maxFeatures=50&outputFormat=application%2Fjson', function(data) {
+        
+        var text = `วันที่ : ${data.features[5].properties.Date}`
+                    
+        
+        $(".mypanel-10").html(text);
+    });
+
 
 	mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0dGF3YXRhcmFiIiwiYSI6ImNpcjMxN3cxcTAwMXFmam5tNGtuY2VjbXcifQ.oQVD5NNye6tRSqiORiLRCw';
     var map = new mapboxgl.Map({
@@ -197,7 +329,11 @@
         map.on('click', 'states-layer', function(e) {
             new mapboxgl.Popup()
                 .setLngLat(e.lngLat)
-                .setHTML('<b>จำนวนผู้ป่วย : </b> ' +e.features[0].properties.total +'<b> คน</b>'+ '<br/>' +'<b>ประเทศ : </b>' +e.features[0].properties.Country)
+                .setHTML('<b>จำนวนผู้ป่วย : </b> ' +e.features[0].properties.total +'<b> คน</b>'
+                  + '<br/>' +'<b>รักษาหาย : </b>' +e.features[0].properties.ideath +'<b> คน</b>'
+                  + '<br/>' +'<b>เสียชีวิต : </b>' +e.features[0].properties.recover +'<b> คน</b>'
+                  + '<br/>' +'<b>เมือง : </b>' +e.features[0].properties.Province
+                  + '<br/>' +'<b>ประเทศ : </b>' +e.features[0].properties.Country)
                 .addTo(map);
         });
 
