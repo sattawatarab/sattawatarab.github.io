@@ -330,8 +330,8 @@
             new mapboxgl.Popup()
                 .setLngLat(e.lngLat)
                 .setHTML('<b>จำนวนผู้ป่วย : </b> ' +e.features[0].properties.total +'<b> คน</b>'
-                  + '<br/>' +'<b>รักษาหาย : </b>' +e.features[0].properties.ideath +'<b> คน</b>'
-                  + '<br/>' +'<b>เสียชีวิต : </b>' +e.features[0].properties.recover +'<b> คน</b>'
+                  + '<br/>' +'<b>เสียชีวิต : </b>' +e.features[0].properties.ideath +'<b> คน</b>'
+                  + '<br/>' +'<b>รักษาหาย : </b>' +e.features[0].properties.recover +'<b> คน</b>'
                   + '<br/>' +'<b>เมือง : </b>' +e.features[0].properties.Province
                   + '<br/>' +'<b>ประเทศ : </b>' +e.features[0].properties.Country)
                 .addTo(map);
