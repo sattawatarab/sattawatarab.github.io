@@ -160,7 +160,7 @@
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v10',
         center: [100.04, 10.907],
-        zoom: 5
+        zoom: 3
     });
 
     map.on('load', function() {
@@ -172,7 +172,7 @@
                 id: 'MODIS-1km',
                 type: 'heatmap',
                 source: 'museums',
-                minzoom: 5,
+                minzoom: 3,
                 maxzoom: 15,
                 paint: {
                     // increase weight as diameter breast height increases
@@ -238,7 +238,7 @@
             id: 'VIIRS-375m',
                 type: 'heatmap',
                 source: 'contours',
-                minzoom: 5,
+                minzoom: 3,
                 maxzoom: 15,
                 paint: {
                     // increase weight as diameter breast height increases
