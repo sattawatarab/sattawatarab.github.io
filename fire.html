@@ -33,7 +33,7 @@
 		}
 .btn-map {
 			height: 40px;
-			background: #7b98bc;
+			background: #404040;
 			color: white;
 			border: 2px solid white;
 			border-radius: 4px;
@@ -160,7 +160,7 @@
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v10',
         center: [100.04, 10.907],
-        zoom: 4
+        zoom: 5
     });
 
     map.on('load', function() {
@@ -172,7 +172,7 @@
                 id: 'MODIS-1km',
                 type: 'heatmap',
                 source: 'museums',
-                minzoom: 4,
+                minzoom: 5,
                 maxzoom: 15,
                 paint: {
                     // increase weight as diameter breast height increases
@@ -238,7 +238,7 @@
             id: 'VIIRS-375m',
                 type: 'heatmap',
                 source: 'contours',
-                minzoom: 4,
+                minzoom: 5,
                 maxzoom: 15,
                 paint: {
                     // increase weight as diameter breast height increases
