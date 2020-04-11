@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <title>ไวรัสโคโรนา 2019 (COVID-19)</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -52,8 +55,51 @@
   display: table;
   clear: both;
 }
+  #menu {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  font-family: 'Open Sans', sans-serif;
+  }
+  
+  #menu a {
+  font-size: 13px;
+  color: #404040;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
+  }
+  
+  #menu a:last-child {
+  border: none;
+  }
+  
+  #menu a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+  }
+  
+  #menu a.active {
+  background-color: #3887be;
+  color: #ffffff;
+  }
+  
+  #menu a.active:hover {
+  background: #3074a4;
+  }
+
 </style>
 <body>
+<nav id="menu"></nav>
 <div id="map"></div>
 <div id="panel">
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">COVID-19</button>
@@ -122,7 +168,7 @@
               <p><div class="mypanel-3"></div></p>
               <p><div class="mypanel-1"></div></p>
             </div>
-<!--             <p align = 'right'> แผนที่ข้อมูลรายจังหวัด &nbsp;&nbsp;&nbsp;</p> -->
+            <!-- <p align = 'right'> แผนที่ข้อมูลรายจังหวัด &nbsp;&nbsp;&nbsp;</p> -->
           </div>
         </div>
         <div class="modal-footer">
@@ -289,35 +335,35 @@
             }
     ),
       map.addLayer(
-            {'id': 'states1-layer',
+            {'id': 'sum <= 50',
             'type': 'circle',
             'source': 'states1',
             'paint': {'circle-radius': 5,'circle-color': 'rgba(200, 100, 240, 0.5)'},
             'filter': ["all", [">", "total", 1], ["<=", "total", 50]],}
       ),
       map.addLayer(
-            {'id': 'states2-layer',
+            {'id': 'sum 51-500',
             'type': 'circle',
             'source': 'states2',
             'paint': {'circle-radius': 12,'circle-color': 'rgba(200, 100, 240, 0.6)'},
             'filter': ["all", [">", "total", 50], ["<=", "total", 500]],}
     ),
     map.addLayer(
-            {'id': 'states3-layer',
+            {'id': 'sum 501-5k',
             'type': 'circle',
             'source': 'states3',
             'paint': {'circle-radius': 18,'circle-color': 'rgba(200, 100, 240, 0.7)'},
             'filter': ["all", [">", "total", 500], ["<=", "total", 5000]],}
     ),
     map.addLayer(
-            {'id': 'states4-layer',
+            {'id': 'sum 5k-50k',
             'type': 'circle',
             'source': 'states4',
             'paint': {'circle-radius': 24,'circle-color': 'rgba(200, 100, 240, 0.7)'},
             'filter': ["all", [">", "total", 5000], ["<=", "total", 50000]],}
     ),
     map.addLayer(
-            {'id': 'states5-layer',
+            {'id': 'sum > 50k',
             'type': 'circle',
             'source': 'states5',
             'paint': {'circle-radius': 28,'circle-color': 'rgba(200, 100, 240, 0.8)'},
@@ -346,9 +392,41 @@
         map.on('mouseleave', 'states-layer', function() {
             map.getCanvas().style.cursor = '';
         });
-    });
-
     
+
+
+    var toggleableLayerIds = ['sum <= 50','sum 51-500','sum 501-5k','sum 5k-50k', 'sum > 50k'];
+  
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+        var id = toggleableLayerIds[i];
+        
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.textContent = id;
+        
+        link.onclick = function(e) {
+          var clickedLayer = this.textContent;
+          e.preventDefault();
+          e.stopPropagation();
+          
+          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+          
+          if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+          } 
+          else {
+          this.className = 'active';
+          map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+          }
+        };
+        
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+    }
+
+  });
 </script>
 
 </body>
