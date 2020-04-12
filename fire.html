@@ -143,14 +143,14 @@
 <script>
     $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3AMODIS_C6_SouthEast_Asia_24h&outputFormat=application%2Fjson', function(data) {
         
-        var text = `&nbsp;&nbsp;&nbsp;&nbsp;MODIS อัพเดทวันที่ : ${data.features[0].properties.ACQ_DATE}`
+        var text = `&nbsp;&nbsp;&nbsp;&nbsp;MODIS ข้อมูลวันที่ : ${data.features[0].properties.ACQ_DATE}`
                     
         $(".mypanel-1").html(text);
     });
 
     $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3AVNP14IMGTDL_NRT_SouthEast_Asia_24h&outputFormat=application%2Fjson', function(data) {
         
-        var text = `&nbsp;&nbsp;&nbsp;&nbsp;VIIRS อัพเดทวันที่ : ${data.features[0].properties.ACQ_DATE}`
+        var text = `&nbsp;&nbsp;&nbsp;&nbsp;VIIRS ข้อมูลวันที่ : ${data.features[0].properties.ACQ_DATE}`
                     
         $(".mypanel-2").html(text);
     });
