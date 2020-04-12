@@ -150,7 +150,7 @@
 
     $.getJSON('https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3AVNP14IMGTDL_NRT_SouthEast_Asia_24h&outputFormat=application%2Fjson', function(data) {
         
-        var text = `&nbsp;&nbsp;&nbsp;&nbsp;VIIRS อัพเดท 24 ชั่วโมงเริ่มจากวันที่ : ${data.features[0].properties.ACQ_DATE} บวก 24 ชั่วโมง`
+        var text = `&nbsp;&nbsp;&nbsp;&nbsp;VIIRS อัพเดท 24 ชั่วโมงเริ่มจากวันที่ : ${data.features[0].properties.ACQ_DATE}`
                     
         $(".mypanel-2").html(text);
     });
