@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>อุบัติเหตุจังหวัดภูเก็ต</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<!-- <link rel="stylesheet" href="css/css-1.css" type="text/css"> -->
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
   body { margin: auto; padding: auto; }
-	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: -1;}
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 #menu {
         background: #fff;
@@ -33,7 +34,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         padding: 0;
         padding: 10px;
         text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        border-bottom: 0px solid rgba(0, 0, 0, 0.25);
         text-align: left;
     }
 
@@ -42,27 +43,27 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     }
 
     #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
+        background-color: #F5F5F5;
+        color: #2393de;
     }
 
     #menu a.active {
-        background-color: #2393de;
-        color: #404040;
+        background-color: #f8f8f8;
+        color: #2393de;
     }
 
     #menu a.active:hover {
-        background: #2393de;
+        background: #f8f8f8;
     }
     .legend {
       background-color: #fff;
       border-radius: 3px;
-      bottom: 30px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      bottom: 50px;
+      /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); */
+      font: 4px/5px 'Open Sans', sans-serif;
       padding: 10px;
       position: absolute;
-      right: 10px;
+      right: 60px;
       z-index: 1;
       }
       
@@ -74,57 +75,97 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       border-radius: 50%;
       display: inline-block;
       height: 10px;
-      margin-right: 5px;
+      margin-right: 10px;
       width: 10px;
       }
 </style>
+<div id="state-legend" class="legend">
+  <h4 style="font-size:12px"> สนับสนุนเราได้ที่ : <img src="https://raw.githubusercontent.com/sattawatarab/geojson/master/logo-3.png" class="w3-circle w3-margin-right" style="width:22px"></h4>
+</div>
 <body class="w3-light-grey">
-
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right"><img src="https://raw.githubusercontent.com/sattawatarab/geojson/master/logo.png" class="w3-circle w3-margin-right" style="width:32px"></span>
+  <span class="w3-bar-item w3-right"><img src="https://raw.githubusercontent.com/sattawatarab/geojson/master/logo-3.png" class="w3-circle w3-margin-right" style="width:32px"></span>
 </div>
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="https://raw.githubusercontent.com/sattawatarab/geojson/master/logo.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img src="https://raw.githubusercontent.com/sattawatarab/geojson/master/logo-3.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <span>ข้อมูล : <strong>พื้นที่เสี่ยงอุบัติเหตุจังหวัดภูเก็ต</strong></span><br>
+      <!-- <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a> -->
     </div>
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Dashboard</h5>
+    <h5>ข้อมูลอุบัติเหตุ</h5>
   </div>
   <div id="menu"></div>
+</div>
   
   <div id="state-legend" class="legend">
-    <h4>Powered by w3.css</h4>
-    </div>
-  <!-- <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>aaa</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>bbb</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
-  </div> -->
+    <h4 style="font-size:18px"> Powered by GIS Story</h4>
+  </div>
 </nav>
-
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-<div id="map">
+<!-- <div id="map"> -->
+    
+    <!-- Header -->
+    <header class="w3-container" style="padding-top:22px">
+      <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+    </header>
+  
+    <div class="w3-row-padding w3-margin-bottom">
+      <div class="w3-quarter">
+        <div class="w3-container w3-red w3-padding-16">
+          <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>ทั้งหมด 10,201 ราย</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <!-- <h4>จังหวัดภูเก็ต</h4> -->
+          <p>จังหวัดภูเก็ต พ.ศ.2562</p>
+        </div>
+      </div>
+      <div class="w3-quarter">
+        <div class="w3-container w3-orange w3-text-white w3-padding-16">
+          <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>ทั้งหมด 6,370 ราย</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <p>อ.เมืองภูเก็ต พ.ศ.2562</p>
+        </div>
+      </div>
+      <div class="w3-quarter">
+        <div class="w3-container w3-teal w3-padding-16">
+          <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>ทั้งหมด 1,920 ราย</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <p>อ.กะทู้ พ.ศ.2562</p>
+        </div>
+      </div>
+      <div class="w3-quarter">
+        <div class="w3-container w3-blue w3-padding-16">
+          <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>ทั้งหมด 1,911 ราย</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <p>อ.ถลาง พ.ศ.2562</p>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
 </div>
 <script>
 // Get the Sidebar
@@ -154,45 +195,98 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0dGF3YXRhcmFiIiwiYSI6ImNpcjMxN3cxcTAwMXFma
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        zoom: 5,
-        center: [105.00, 11.00]
+        zoom: 10,
+        center: [98.50, 8.05]
     });
 
     map.on('load', function() {
         // add source and layer for museums
-        map.addSource('bb3', {
-      'type': 'vector',
-      'tiles': [
-          'https://api.vallaris.space/v2/tile/299/{z}/{x}/{y}?key=k-a64f1a02-50c9-5cb4-a490-3545bf09fd54'
-      ],
-      'minzoom': 0,
-      'maxzoom': 18
-      });
-      map.addLayer(
-          {
-      "id": "point",
-      "type": "circle",
-      "source": "bb3",
-      "source-layer": "299",
-      'layout': {
-            'visibility': 'none'
-        },
-      'paint': {'circle-radius': 20,'circle-color': 'rgba(200, 100, 240, 0.8)'},
-      }
-      );
-      map.addSource('contours', {
+        map.addSource('accident', {
             type: 'geojson',
-            data: 'https://kathumap.i-bitz.co.th/geoserver/KathuMap/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=KathuMap%3AVNP14IMGTDL_NRT_SouthEast_Asia_24h&outputFormat=application%2Fjson'
+            data:
+                'https://raw.githubusercontent.com/sattawatarab/geojson/master/accident_phuket.geojson',
+            cluster: true,
+            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+        });
+
+        map.addLayer({
+            id: 'clusters',
+            type: 'circle',
+            source: 'accident',
+            'layout': {
+            'visibility': 'none'
+              },
+            filter: ['has', 'point_count'],
+            paint: {
+                // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+                // with three steps to implement three types of circles:
+                //   * Blue, 20px circles when point count is less than 100
+                //   * Yellow, 30px circles when point count is between 100 and 750
+                //   * Pink, 40px circles when point count is greater than or equal to 750
+                'circle-color': [
+                    'step',
+                    ['get', 'point_count'],
+                    '#51bbd6',
+                    100,
+                    '#f1f075',
+                    750,
+                    '#f28cb1'
+                ],
+                'circle-radius': [
+                    'step',
+                    ['get', 'point_count'],
+                    20,
+                    100,
+                    30,
+                    750,
+                    40
+                ]
+            }
+        });
+
+        map.addLayer({
+            id: 'cluster-count',
+            type: 'symbol',
+            source: 'accident',
+            filter: ['has', 'point_count'],
+            layout: {
+                'visibility': 'none',
+                'text-field': '{point_count_abbreviated}',
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 12
+            }
+        });
+
+        map.addLayer({
+            id: 'unclustered',
+            type: 'circle',
+            source: 'accident',
+            'layout': {
+            'visibility': 'none'
+              },
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+                'circle-color': '#11b4da',
+                'circle-radius': 4,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#fff'
+            }
+        });
+        
+      map.addSource('density-point', {
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/sattawatarab/geojson/master/accident_phuket.geojson'
             });
         map.addLayer({
-            id: 'VIIRS-375m',
+            id: 'density',
             type: 'heatmap',
-            source: 'contours',
+            source: 'density-point',
             'layout': {
             'visibility': 'none'
         },
-            minzoom: 5,
-            maxzoom: 15,
+            minzoom: 9,
+            maxzoom: 20,
             paint: {
                 // increase weight as diameter breast height increases
                 'heatmap-weight': {
@@ -252,7 +346,7 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2F0dGF3YXRhcmFiIiwiYSI6ImNpcjMxN3cxcTAwMXFma
 
     // enumerate ids of the layers
 
-    var toggleableLayerIds = [ 'point','VIIRS-375m' ];
+    var toggleableLayerIds = [ 'clusters','cluster-count','unclustered','density' ];
 
     for (var i = 0; i < toggleableLayerIds.length; i++) {
         var id = toggleableLayerIds[i];
