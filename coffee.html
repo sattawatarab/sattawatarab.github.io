@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>เลือกทำเลร้านกาแฟรอบ ม.อ. หาดใหญ่</title>
+  <meta name="description" content="เปรียบเทียบทำเลร้านกาแฟ 10 จุดที่อยู่ห่างจาก ม.อ. หาดใหญ่ 1–2 กิโลเมตร">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.css" rel="stylesheet">
+  <style>
+    :root{--ink:#18312b;--muted:#64736f;--paper:#f5f3ec;--card:#fffdf7;--line:#d9ddd6;--green:#126149;--mint:#bfe5d5;--orange:#e58042;--red:#ad4c3d;--shadow:0 16px 45px rgba(24,49,43,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans Thai",system-ui,sans-serif;line-height:1.55}button,a{font:inherit}.wrap{width:min(1160px,calc(100% - 32px));margin:auto}
+    header{padding:46px 0 26px;background:linear-gradient(135deg,#0c503d,#193c34);color:#fff}.eyebrow{margin:0 0 10px;color:#bcead7;font-size:.83rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.header-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:32px;align-items:end}h1{max-width:780px;margin:0;font-size:clamp(2rem,5vw,4.25rem);line-height:1.05;letter-spacing:-.04em}header p{max-width:720px;margin:18px 0 0;color:#d9eee6;font-size:1.05rem}.rule-box{padding:20px;border:1px solid rgba(255,255,255,.22);border-radius:18px;background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}.rule-box span{display:block;color:#bcead7;font-size:.8rem}.rule-box b{display:block;margin-top:5px;font-size:1.5rem}.rule-box small{display:block;margin-top:8px;color:#d9eee6}
+    main{padding:26px 0 64px}.status{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px;padding:18px 20px;border-left:5px solid var(--green);border-radius:14px;background:#edf6f1;box-shadow:var(--shadow)}.status-icon{display:grid;flex:0 0 34px;height:34px;place-items:center;border-radius:50%;background:var(--green);color:#fff;font-weight:700}.status strong{display:block}.status p{margin:4px 0 0;color:#405f55}.map-shell{overflow:hidden;border:1px solid var(--line);border-radius:22px;background:var(--card);box-shadow:var(--shadow)}.map-head{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}.map-head h2{margin:0;font-size:1.2rem}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.82rem}.legend span{display:flex;align-items:center;gap:7px}.swatch{width:12px;height:12px;border-radius:4px}.swatch.allowed{background:rgba(18,97,73,.35);border:2px solid var(--green)}.swatch.excluded{background:rgba(173,76,61,.22);border:2px solid var(--red)}.swatch.psu{border-radius:50%;background:var(--orange)}#decision-map{height:min(65vh,650px);min-height:470px}.maplibregl-popup-content{font-family:"Noto Sans Thai",sans-serif;border-radius:12px;padding:13px 15px}.psu-marker,.candidate-marker{display:grid;place-items:center;border:3px solid #fff;border-radius:50%;color:#fff;font-weight:700;box-shadow:0 5px 18px rgba(0,0,0,.25)}.psu-marker{width:44px;height:44px;background:var(--orange);font-size:.76rem}.candidate-marker{width:38px;height:38px;background:var(--green);font-size:.8rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:24px}.panel{padding:24px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:var(--shadow)}.panel h2{margin:0 0 6px;font-size:1.25rem}.panel>p{margin:0 0 20px;color:var(--muted)}.decision-panel{margin-bottom:24px;padding:clamp(22px,4vw,36px);border:1px solid #a8cbbb;border-radius:22px;background:linear-gradient(135deg,#e6f3ed,#fffdf7 72%);box-shadow:var(--shadow)}.decision-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:30px;align-items:start}.decision-kicker{margin:0 0 8px;color:var(--green);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}.decision-panel h2{margin:0;font-size:clamp(1.7rem,4vw,2.8rem);line-height:1.18;letter-spacing:-.03em}.decision-lead{max-width:680px;margin:12px 0 0;color:#405f55}.reason-list{margin:20px 0 0;padding:0;list-style:none}.reason-list li{display:flex;gap:10px;padding:7px 0}.reason-list b{color:var(--green)}.decision-next{padding:18px;border-radius:16px;background:#18312b;color:#fff}.decision-next span{display:block;color:#bfe5d5;font-size:.78rem}.decision-next b{display:block;margin:5px 0 10px;font-size:1.3rem}.decision-next ol{margin:0;padding-left:21px;color:#e8f1ed;font-size:.9rem}.scenario-block{margin-top:28px;padding-top:24px;border-top:1px solid #b9d4c8}.scenario-head{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}.scenario-head h3{margin:0;font-size:1.05rem}.scenario-head p{margin:3px 0 0;color:var(--muted);font-size:.84rem}.scenario-controls{display:flex;gap:8px;flex-wrap:wrap}.scenario-btn{padding:8px 12px;border:1px solid #b9c9c2;border-radius:999px;background:#fffdf7;color:var(--ink);cursor:pointer}.scenario-btn[aria-pressed="true"]{border-color:var(--green);background:var(--green);color:#fff}.rank-chart{display:grid;gap:11px;margin-top:18px}.rank-row{display:grid;grid-template-columns:minmax(180px,270px) minmax(160px,1fr) 54px;gap:12px;align-items:center}.rank-label{display:flex;gap:9px;align-items:center;min-width:0}.rank-label strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rank-number{display:grid;flex:0 0 26px;height:26px;place-items:center;border-radius:50%;background:#dfe9e4;font-size:.78rem}.rank-row:first-child .rank-number{background:var(--green);color:#fff}.rank-track{height:18px;overflow:hidden;border-radius:999px;background:#dfe9e4}.rank-fill{display:block;height:100%;border-radius:inherit;background:var(--green);transition:width .35s ease}.rank-row:not(:first-child) .rank-fill{background:#75a28f}.rank-value{text-align:right;font-weight:700}.scenario-result{margin:15px 0 0;color:#405f55;font-size:.9rem}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{padding:16px;border-top:3px solid var(--green);background:#edf6f1}.metric span{display:block;color:var(--muted);font-size:.78rem}.metric b{display:block;margin-top:4px;font-size:1.55rem}.metric.excluded{border-color:var(--red);background:#faeeeb}.metric.pending{border-color:var(--orange);background:#fff3e8}.criteria{margin:16px 0 0;padding:0;list-style:none}.criteria li{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:11px 0;border-top:1px solid var(--line)}.criteria i{display:grid;width:22px;height:22px;place-items:center;border-radius:50%;background:var(--green);color:#fff;font-style:normal;font-size:.74rem}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}.analysis-table{width:100%;min-width:900px;border-collapse:collapse}.analysis-table th,.analysis-table td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.analysis-table th{background:#edf6f1;color:#405f55;font-size:.78rem}.analysis-table th:nth-child(2),.analysis-table td:nth-child(2){text-align:left}.analysis-table tr:last-child td{border-bottom:0}.analysis-table tr:first-child td{background:#f2f8f5}.analysis-table small{display:block;color:var(--muted)}.rank-badge{display:inline-grid;width:30px;height:30px;place-items:center;border-radius:50%;background:var(--green);color:#fff;font-weight:700}.score{font-size:1.12rem;color:var(--green)}.method-note{margin:16px 0 0;color:var(--muted);font-size:.84rem}.callout{margin-top:18px;padding:16px 18px;border-left:4px solid var(--orange);border-radius:10px;background:#fff3e8}.empty{display:grid;min-height:220px;place-items:center;text-align:center;padding:30px;border:2px dashed var(--line);border-radius:16px;color:var(--muted)}.empty b{display:block;color:var(--ink);font-size:1.1rem}.empty p{max-width:430px;margin:6px auto 0}.source-note a{color:var(--green);font-weight:700}footer{padding:24px 0 38px;color:var(--muted);font-size:.82rem}.source-note{padding-top:18px;border-top:1px solid var(--line)}
+    @media(max-width:820px){.header-grid,.grid,.decision-top{grid-template-columns:1fr}.rule-box{max-width:420px}.map-head{align-items:flex-start;flex-direction:column}.metrics{grid-template-columns:1fr}.rank-row{grid-template-columns:150px minmax(110px,1fr) 48px}#decision-map{min-height:420px}}
+    @media(max-width:480px){.wrap{width:min(100% - 20px,1160px)}header{padding-top:32px}.status{padding:15px}.panel{padding:18px}.decision-panel{padding:18px}.rank-row{grid-template-columns:92px minmax(90px,1fr) 42px;gap:8px}.rank-label strong{font-size:.82rem}#decision-map{min-height:360px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-grid">
+      <div>
+        <p class="eyebrow">เลือกทำเลร้านกาแฟ · หาดใหญ่</p>
+        <h1>10 ทำเลน่าสนใจ<br>รอบ ม.อ. หาดใหญ่</h1>
+        <p>เปรียบเทียบเฉพาะจุดที่อยู่ห่างจาก ม.อ. <strong>มากกว่า 1 กม. แต่ไม่เกิน 2 กม.</strong></p>
+      </div>
+      <aside class="rule-box" aria-label="กติกาการคัดเลือก">
+        <span>พื้นที่ที่นำมาเทียบ</span>
+        <b>ห่าง ม.อ. 1–2 กม.</b>
+        <small>จุดที่ใกล้กว่า 1 กม. ไม่นำมาคิดคะแนน</small>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="status" role="status">
+        <div class="status-icon">✓</div>
+        <div><strong>เทียบครบ 10 จุดแล้ว — H9 น่าลงพื้นที่ดูก่อน</strong><p>คะแนนมาจากน้ำท่วม จำนวนอาคาร ระดับประชากร และร้านกาแฟรอบจุดนั้นในระยะ 500 เมตร</p></div>
+      </div>
+
+      <section class="decision-panel" aria-labelledby="decision-title">
+        <div class="decision-top">
+          <div>
+            <p class="decision-kicker">คำแนะนำตอนนี้</p>
+            <h2 id="decision-title">ไปดู H9 ก่อน แล้วค่อยเทียบ H10 กับ H4</h2>
+            <p class="decision-lead">H9 แถวโรงเรียนอนุบาลกาญจนวนิชได้ 70.0 คะแนน เพราะมีอาคารมาก น้ำท่วมต่ำกว่าหลายจุด และในข้อมูลยังไม่พบร้านกาแฟใกล้ ๆ แต่ควรไปดูของจริงเพื่อยืนยันอีกครั้ง</p>
+            <ul class="reason-list">
+              <li><b>อาคารเยอะ:</b><span>มี 881 อาคารในระยะ 500 เมตร มากเป็นอันดับ 2</span></li>
+              <li><b>น้ำท่วมน้อยกว่า:</b><span>คะแนนน้ำท่วม 52.50 ต่ำกว่า H4, H8 และ H10</span></li>
+              <li><b>คู่แข่งน้อย:</b><span>ในข้อมูลไม่พบร้านกาแฟใกล้ ๆ แต่ต้องเดินสำรวจเพื่อยืนยัน</span></li>
+            </ul>
+          </div>
+          <aside class="decision-next" aria-label="ขั้นตอนก่อนตัดสินใจลงทุน">
+            <span>สิ่งที่ต้องเช็กก่อนเช่า</span>
+            <b>ไปดูพื้นที่จริง 3 เรื่อง</b>
+            <ol><li>มีร้านกาแฟจริงกี่ร้าน</li><li>ช่วงรับ–ส่งนักเรียนมีคนผ่านมากแค่ไหน</li><li>ค่าเช่าและที่จอดดีกว่า H10 หรือ H4 หรือไม่</li></ol>
+          </aside>
+        </div>
+        <div class="scenario-block">
+          <div class="scenario-head">
+            <div><h3>ลองเลือกว่าสิ่งไหนสำคัญกับคุณ</h3><p id="scenario-description">ให้น้ำหนักทั้ง 4 เรื่องเท่ากัน เรื่องละ 25%</p></div>
+            <div class="scenario-controls" aria-label="เลือกสิ่งที่สำคัญในการตัดสินใจ">
+              <button class="scenario-btn" type="button" data-scenario="balanced" aria-pressed="true">ดูทุกด้าน</button>
+              <button class="scenario-btn" type="button" data-scenario="demand" aria-pressed="false">เน้นลูกค้าเยอะ</button>
+              <button class="scenario-btn" type="button" data-scenario="risk" aria-pressed="false">เน้นน้ำท่วมน้อย</button>
+              <button class="scenario-btn" type="button" data-scenario="competition" aria-pressed="false">เน้นคู่แข่งน้อย</button>
+            </div>
+          </div>
+          <div class="rank-chart" id="rank-chart" role="img" aria-label="กราฟอันดับคะแนนทำเลตามมุมมองที่เลือก">
+            <div class="rank-row" data-code="H9"><div class="rank-label"><span class="rank-number">1</span><strong>H9 อนุบาลกาญจนวนิช</strong></div><div class="rank-track"><span class="rank-fill" style="width:70%"></span></div><span class="rank-value">70.0</span></div>
+            <div class="rank-row" data-code="H10"><div class="rank-label"><span class="rank-number">2</span><strong>H10 โรงแรมเอสหาดใหญ่</strong></div><div class="rank-track"><span class="rank-fill" style="width:60.8%"></span></div><span class="rank-value">60.8</span></div>
+            <div class="rank-row" data-code="H4"><div class="rank-label"><span class="rank-number">3</span><strong>H4 ชุมชนคลองเรียน</strong></div><div class="rank-track"><span class="rank-fill" style="width:59.4%"></span></div><span class="rank-value">59.4</span></div>
+            <div class="rank-row" data-code="H8"><div class="rank-label"><span class="rank-number">4</span><strong>H8 โรงเรียนเทศบาล 4</strong></div><div class="rank-track"><span class="rank-fill" style="width:58.1%"></span></div><span class="rank-value">58.1</span></div>
+            <div class="rank-row" data-code="H1"><div class="rank-label"><span class="rank-number">5</span><strong>H1 ตลาดคลองเรียน</strong></div><div class="rank-track"><span class="rank-fill" style="width:52.7%"></span></div><span class="rank-value">52.7</span></div>
+            <div class="rank-row" data-code="H2"><div class="rank-label"><span class="rank-number">6</span><strong>H2 Greenway</strong></div><div class="rank-track"><span class="rank-fill" style="width:51%"></span></div><span class="rank-value">51.0</span></div>
+            <div class="rank-row" data-code="H6"><div class="rank-label"><span class="rank-number">7</span><strong>H6 มอ.วิทยานุสรณ์</strong></div><div class="rank-track"><span class="rank-fill" style="width:45.4%"></span></div><span class="rank-value">45.4</span></div>
+            <div class="rank-row" data-code="H7"><div class="rank-label"><span class="rank-number">8</span><strong>H7 รพ.กรุงเทพ</strong></div><div class="rank-track"><span class="rank-fill" style="width:45.2%"></span></div><span class="rank-value">45.2</span></div>
+            <div class="rank-row" data-code="H3"><div class="rank-label"><span class="rank-number">9</span><strong>H3 Big C Extra</strong></div><div class="rank-track"><span class="rank-fill" style="width:38.5%"></span></div><span class="rank-value">38.5</span></div>
+            <div class="rank-row" data-code="H5"><div class="rank-label"><span class="rank-number">10</span><strong>H5 แยกสามสิบเมตร</strong></div><div class="rank-track"><span class="rank-fill" style="width:29%"></span></div><span class="rank-value">29.0</span></div>
+          </div>
+          <p class="scenario-result" id="scenario-result"><strong>ข้อสรุป:</strong> H9 นำ 9.2 คะแนนเหนือ H10</p>
+        </div>
+      </section>
+
+      <section class="map-shell" aria-labelledby="map-title">
+        <div class="map-head">
+          <h2 id="map-title">ดูตำแหน่งทั้ง 10 จุด</h2>
+          <div class="legend" aria-label="คำอธิบายแผนที่">
+            <span><i class="swatch allowed"></i>พื้นที่ที่นำมาเทียบ: 1–2 กม.</span>
+            <span><i class="swatch excluded"></i>ไม่นำมาเทียบ: ไม่เกิน 1 กม.</span>
+            <span><i class="swatch psu"></i>จุดอ้างอิง ม.อ.</span>
+          </div>
+        </div>
+        <div id="decision-map" aria-label="แผนที่วงแหวนระยะหนึ่งถึงสองกิโลเมตรจากมหาวิทยาลัยสงขลานครินทร์ วิทยาเขตหาดใหญ่"></div>
+        <noscript><div class="empty"><div><b>ต้องเปิด JavaScript เพื่อดูแผนที่</b><p>เกณฑ์ระยะยังคงเป็นมากกว่า 1,000 เมตรถึงไม่เกิน 2,000 เมตรจากพิกัด 7.009108, 100.497210</p></div></div></noscript>
+      </section>
+
+      <div class="grid">
+        <section class="panel">
+          <h2>ข้อมูลที่ใช้เลือกทำเล</h2>
+          <p>ทั้ง 10 จุดอยู่ในระยะที่กำหนดและมีข้อมูลครบสำหรับเปรียบเทียบ</p>
+          <div class="metrics">
+            <div class="metric"><span>จำนวนทำเล</span><b id="candidate-count">10</b></div>
+            <div class="metric"><span>ระยะจาก ม.อ.</span><b>1–2 กม.</b></div>
+            <div class="metric"><span>ข้อมูลครบ</span><b>10 / 10</b></div>
+          </div>
+          <ol class="criteria">
+            <li><i>1</i><span>เลือกเฉพาะจุดที่ห่างจาก ม.อ. มากกว่า 1 กม. แต่ไม่เกิน 2 กม.</span></li>
+            <li><i>2</i><span>ดูน้ำท่วม อาคาร ประชากร และร้านกาแฟรอบจุดนั้น</span></li>
+            <li><i>3</i><span>แปลงข้อมูลเป็นคะแนนเพื่อให้เทียบทั้ง 10 จุดได้ง่าย</span></li>
+          </ol>
+        </section>
+
+        <section class="panel" aria-labelledby="analysis-title">
+          <h2 id="analysis-title">ตารางเปรียบเทียบทั้ง 10 จุด</h2>
+          <p>น้ำท่วม อาคาร และร้านกาแฟดูในระยะ 500 เมตร ส่วนตัวเลขประชากรเป็นระดับประชากรของพื้นที่ใหญ่ที่ครอบจุดนั้น จึงไม่ใช่จำนวนคนในระยะ 500 เมตรโดยตรง</p>
+          <div class="table-wrap">
+            <table class="analysis-table">
+              <thead><tr><th>อันดับ</th><th>ทำเล</th><th>คะแนนรวม</th><th>น้ำท่วม<br>(ต่ำดีกว่า)</th><th>อาคารใน 500 ม.<br>(มากดีกว่า)</th><th>ระดับประชากร<br>(มากดีกว่า)</th><th>ร้านกาแฟใน 500 ม.<br>(น้อยดีกว่า)</th></tr></thead>
+              <tbody>
+                <tr><td><span class="rank-badge">1</span></td><td><strong>H9 · โรงเรียนอนุบาลกาญจนวนิช</strong><small>อาคารเยอะ ไม่พบร้านกาแฟใกล้ ๆ และน้ำท่วมไม่สูง</small></td><td><strong class="score">70.0</strong></td><td>52.50</td><td>881</td><td>3,999.34</td><td>0</td></tr>
+                <tr><td><span class="rank-badge">2</span></td><td><strong>H10 · โรงแรมเอสหาดใหญ่</strong><small>อาคารและประชากรสูงสุด แต่น้ำท่วมค่อนข้างสูง</small></td><td><strong class="score">60.8</strong></td><td>56.76</td><td>898</td><td>7,144.07</td><td>17</td></tr>
+                <tr><td><span class="rank-badge">3</span></td><td><strong>H4 · ชุมชนวัด–โรงเรียนคลองเรียน</strong><small>ได้คะแนนดีเกือบทุกด้าน เหมาะเป็นตัวเลือกสำรอง</small></td><td><strong class="score">59.4</strong></td><td>55.43</td><td>815</td><td>6,273.53</td><td>13</td></tr>
+                <tr><td><span class="rank-badge">4</span></td><td><strong>H8 · โรงเรียนเทศบาล 4 (วัดคลองเรียน)</strong><small>คล้าย H4 แต่มีร้านกาแฟมากกว่าและน้ำท่วมสูงกว่าเล็กน้อย</small></td><td><strong class="score">58.1</strong></td><td>55.58</td><td>815</td><td>6,273.53</td><td>14</td></tr>
+                <tr><td><span class="rank-badge">5</span></td><td><strong>H1 · ตลาดคลองเรียน–ถนนกาญจนวนิช</strong><small>อาคารเยอะ ร้านกาแฟไม่มาก แต่ประชากรอยู่ระดับกลาง</small></td><td><strong class="score">52.7</strong></td><td>55.44</td><td>827</td><td>4,698.13</td><td>12</td></tr>
+                <tr><td><span class="rank-badge">6</span></td><td><strong>H2 · Greenway Night Market</strong><small>ร้านกาแฟไม่มาก แต่จำนวนอาคารและประชากรไม่เด่น</small></td><td><strong class="score">51.0</strong></td><td>54.74</td><td>753</td><td>4,698.13</td><td>12</td></tr>
+                <tr><td><span class="rank-badge">7</span></td><td><strong>H6 · โรงเรียน มอ. วิทยานุสรณ์</strong><small>น้ำท่วมน้อยและร้านกาแฟน้อย แต่อาคารกับประชากรต่ำสุด</small></td><td><strong class="score">45.4</strong></td><td>47.39</td><td>364</td><td>2,347.03</td><td>5</td></tr>
+                <tr><td><span class="rank-badge">8</span></td><td><strong>H7 · โรงพยาบาลกรุงเทพหาดใหญ่</strong><small>อาคารเยอะ แต่มีร้านกาแฟใกล้ ๆ มากที่สุดถึง 27 ร้าน</small></td><td><strong class="score">45.2</strong></td><td>54.58</td><td>833</td><td>5,453.46</td><td>27</td></tr>
+                <tr><td><span class="rank-badge">9</span></td><td><strong>H3 · Big C Extra–ถนนเพชรเกษม</strong><small>ประชากรระดับกลาง แต่มีร้านกาแฟใกล้ ๆ มาก</small></td><td><strong class="score">38.5</strong></td><td>55.68</td><td>671</td><td>5,453.46</td><td>23</td></tr>
+                <tr><td><span class="rank-badge">10</span></td><td><strong>H5 · แยกสามสิบเมตร</strong><small>น้ำท่วมและจำนวนร้านกาแฟสูง แต่อาคารไม่มาก</small></td><td><strong class="score">29.0</strong></td><td>57.39</td><td>579</td><td>5,453.46</td><td>24</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="method-note"><strong>เรื่องที่ควรรู้:</strong> จุดที่อยู่ในพื้นที่ประชากรเดียวกันอาจได้ตัวเลขประชากรเท่ากัน คะแนนทั้งหมดใช้เพื่อเทียบเฉพาะ 10 จุดในหน้านี้ ไม่ใช่คะแนนมาตรฐานทั่วไป<br><strong>การคิดคะแนน:</strong> อาคารและประชากรมากได้คะแนนดี ส่วนน้ำท่วมและร้านกาแฟใกล้เคียงน้อยได้คะแนนดี จากนั้นนำทั้ง 4 เรื่องมาเฉลี่ยเท่ากัน</p>
+          <div class="callout"><strong>ตัดสินใจอย่างไร:</strong> ไปดู H9 ก่อน ถ้าพบว่ามีร้านกาแฟตกหล่นจากข้อมูลหรือคนผ่านน้อย ให้เปรียบเทียบ H10 ซึ่งมีอาคารและประชากรสูง กับ H4 ซึ่งได้คะแนนค่อนข้างดีทุกด้าน</div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer><div class="wrap source-note"><strong>จุดอ้างอิง:</strong> ม.อ. หาดใหญ่ 7.009108, 100.497210 · <strong>ข้อมูลที่ใช้:</strong> ความเสี่ยงน้ำท่วม อาคาร ประชากร และสถานที่ในหาดใหญ่จาก Geo Insight โดยดูพื้นที่รอบแต่ละจุดในระยะ 500 เมตร ยกเว้นข้อมูลประชากรซึ่งเป็นข้อมูลระดับพื้นที่</div></footer>
+
+  <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script>
+  <script>
+    (()=>{
+      const psu={lat:7.009108,lon:100.497210};
+      const candidatePoints=[
+        {rank:5,code:'H1',short:'H1 ตลาดคลองเรียน',name:'ตลาดคลองเรียน–ถนนกาญจนวนิช',lat:6.999967,lon:100.489672,distance:1313,type:'ย่านธุรกิจและที่พักอาศัย',geo:{score:52.7,flood:55.44,buildings:827,population:4698.13,competitors:12},norm:{flood:19.42,buildings:86.70,population:49.01,competitors:55.56}},
+        {rank:6,code:'H2',short:'H2 Greenway',name:'Greenway Night Market',lat:6.997100,lon:100.487170,distance:1735,type:'ตลาดนักศึกษาและกิจกรรมช่วงเย็น',geo:{score:51.0,flood:54.74,buildings:753,population:4698.13,competitors:12},norm:{flood:26.42,buildings:72.85,population:49.01,competitors:55.56}},
+        {rank:9,code:'H3',short:'H3 Big C Extra',name:'Big C Extra หาดใหญ่–ถนนเพชรเกษม',lat:7.019028,lon:100.485750,distance:1678,type:'ศูนย์ค้าปลีกและบริการ',geo:{score:38.5,flood:55.68,buildings:671,population:5453.46,competitors:23},norm:{flood:17.05,buildings:57.49,population:64.76,competitors:14.81}},
+        {rank:3,code:'H4',short:'H4 ชุมชนคลองเรียน',name:'ชุมชนวัด–โรงเรียนคลองเรียน',lat:6.999080,lon:100.486310,distance:1640,type:'ชุมชน ที่พักอาศัย และสถานศึกษา',geo:{score:59.4,flood:55.43,buildings:815,population:6273.53,competitors:13},norm:{flood:19.60,buildings:84.46,population:81.85,competitors:51.85}},
+        {rank:10,code:'H5',short:'H5 แยกสามสิบเมตร',name:'แยกสามสิบเมตร',lat:7.018524,lon:100.482521,distance:1930,type:'จุดตัดการเดินทางช่วงเร่งด่วน',geo:{score:29.0,flood:57.39,buildings:579,population:5453.46,competitors:24},norm:{flood:0,buildings:40.26,population:64.76,competitors:11.11}},
+        {rank:7,code:'H6',short:'H6 มอ.วิทยานุสรณ์',name:'โรงเรียน มอ. วิทยานุสรณ์',lat:7.000919388263016,lon:100.50663535429716,distance:1397,type:'สถานศึกษาและชุมชนฝั่งตะวันออก',geo:{score:45.4,flood:47.39,buildings:364,population:2347.03,competitors:5},norm:{flood:100,buildings:0,population:0,competitors:81.48}},
+        {rank:8,code:'H7',short:'H7 รพ.กรุงเทพ',name:'โรงพยาบาลกรุงเทพหาดใหญ่',lat:7.015584287589134,lon:100.4856966282015,distance:1481,type:'โรงพยาบาลและบริการสุขภาพ',geo:{score:45.2,flood:54.58,buildings:833,population:5453.46,competitors:27},norm:{flood:28.03,buildings:87.83,population:64.76,competitors:0}},
+        {rank:4,code:'H8',short:'H8 โรงเรียนเทศบาล 4',name:'โรงเรียนเทศบาล 4 (วัดคลองเรียน)',lat:6.999260591881874,lon:100.48535883167268,distance:1703,type:'สถานศึกษาและชุมชนคลองเรียน',geo:{score:58.1,flood:55.58,buildings:815,population:6273.53,competitors:14},norm:{flood:18.05,buildings:84.46,population:81.85,competitors:48.15}},
+        {rank:1,code:'H9',short:'H9 อนุบาลกาญจนวนิช',name:'โรงเรียนอนุบาลกาญจนวนิช',lat:7.025338020379291,lon:100.498886754491,distance:1818,type:'สถานศึกษาและชุมชนฝั่งเหนือ',geo:{score:70.0,flood:52.50,buildings:881,population:3999.34,competitors:0},norm:{flood:48.86,buildings:96.82,population:34.44,competitors:100}},
+        {rank:2,code:'H10',short:'H10 โรงแรมเอสหาดใหญ่',name:'โรงแรมเอสหาดใหญ่',lat:7.006884039791224,lon:100.48019877901787,distance:1853,type:'ที่พักและชุมชนฝั่งตะวันตก',geo:{score:60.8,flood:56.76,buildings:898,population:7144.07,competitors:17},norm:{flood:6.25,buildings:100,population:100,competitors:37.04}}
+      ];
+
+      const scenarios={
+        balanced:{weights:{flood:.25,buildings:.25,population:.25,competitors:.25},description:'ให้น้ำหนักทั้ง 4 เรื่องเท่ากัน เรื่องละ 25%'},
+        demand:{weights:{flood:.10,buildings:.35,population:.35,competitors:.20},description:'เน้นประชากรและอาคารมากที่สุด เพื่อหาพื้นที่ที่มีลูกค้ารองรับ'},
+        risk:{weights:{flood:.50,buildings:.15,population:.10,competitors:.25},description:'ให้น้ำท่วมสำคัญที่สุด รองลงมาคือจำนวนร้านกาแฟใกล้เคียง'},
+        competition:{weights:{flood:.15,buildings:.20,population:.15,competitors:.50},description:'ให้จำนวนร้านกาแฟใกล้เคียงสำคัญที่สุด'}
+      };
+      const updateScenario=key=>{
+        const scenario=scenarios[key],weights=scenario.weights;
+        const ranked=candidatePoints.map(p=>({...p,scenarioScore:Object.keys(weights).reduce((sum,k)=>sum+p.norm[k]*weights[k],0)})).sort((a,b)=>b.scenarioScore-a.scenarioScore);
+        const chart=document.getElementById('rank-chart');
+        ranked.forEach((p,index)=>{
+          const row=chart.querySelector('[data-code="'+p.code+'"]');
+          row.querySelector('.rank-number').textContent=index+1;
+          row.querySelector('.rank-label strong').textContent=p.short;
+          row.querySelector('.rank-fill').style.width=p.scenarioScore.toFixed(1)+'%';
+          row.querySelector('.rank-value').textContent=p.scenarioScore.toFixed(1);
+          chart.appendChild(row);
+        });
+        document.getElementById('scenario-description').textContent=scenario.description;
+        const gap=ranked[0].scenarioScore-ranked[1].scenarioScore;
+        document.getElementById('scenario-result').innerHTML='<strong>ข้อสรุป:</strong> '+ranked[0].code+' เป็นอันดับ 1 เหนือ '+ranked[1].code+' '+gap.toFixed(1)+' คะแนน';
+        document.querySelectorAll('.scenario-btn').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.scenario===key)));
+        chart.setAttribute('aria-label','อันดับตามมุมมอง '+scenario.description+': '+ranked.map((p,i)=>(i+1)+' '+p.code+' '+p.scenarioScore.toFixed(1)).join(', '));
+      };
+      document.querySelectorAll('.scenario-btn').forEach(btn=>btn.addEventListener('click',()=>updateScenario(btn.dataset.scenario)));
+
+      const ring=(lon,lat,radiusM,steps=128,reverse=false)=>{
+        const coords=[],earth=6371008.8,angular=radiusM/earth,latR=lat*Math.PI/180,lonR=lon*Math.PI/180;
+        for(let i=0;i<=steps;i++){
+          const n=reverse?steps-i:i,bearing=2*Math.PI*n/steps;
+          const pLat=Math.asin(Math.sin(latR)*Math.cos(angular)+Math.cos(latR)*Math.sin(angular)*Math.cos(bearing));
+          const pLon=lonR+Math.atan2(Math.sin(bearing)*Math.sin(angular)*Math.cos(latR),Math.cos(angular)-Math.sin(latR)*Math.sin(pLat));
+          coords.push([pLon*180/Math.PI,pLat*180/Math.PI]);
+        }
+        return coords;
+      };
+
+      document.getElementById('candidate-count').textContent=candidatePoints.length.toLocaleString('th-TH');
+      if(!window.maplibregl){
+        document.getElementById('decision-map').innerHTML='<div class="empty"><div><b>โหลดแผนที่ไม่สำเร็จ</b><p>กรุณาเชื่อมต่ออินเทอร์เน็ตเพื่อโหลด MapLibre และแผนที่ฐาน</p></div></div>';
+        return;
+      }
+
+      const map=new maplibregl.Map({
+        container:'decision-map',center:[psu.lon,psu.lat],zoom:13.9,scrollZoom:false,
+        style:{version:8,sources:{osm:{type:'raster',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],tileSize:256,attribution:'© OpenStreetMap contributors'}},layers:[{id:'osm',type:'raster',source:'osm'}]}
+      });
+      map.addControl(new maplibregl.NavigationControl({showCompass:true}),'top-right');
+      map.addControl(new maplibregl.ScaleControl({unit:'metric'}),'bottom-left');
+      map.on('load',()=>{
+        map.addSource('eligible-ring',{type:'geojson',data:{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[ring(psu.lon,psu.lat,2000),ring(psu.lon,psu.lat,1000,128,true)]}}});
+        map.addLayer({id:'eligible-fill',type:'fill',source:'eligible-ring',paint:{'fill-color':'#126149','fill-opacity':.22}});
+        map.addLayer({id:'eligible-line',type:'line',source:'eligible-ring',paint:{'line-color':'#126149','line-width':2}});
+        map.addSource('excluded-area',{type:'geojson',data:{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[ring(psu.lon,psu.lat,1000)]}}});
+        map.addLayer({id:'excluded-fill',type:'fill',source:'excluded-area',paint:{'fill-color':'#ad4c3d','fill-opacity':.16}});
+        map.addLayer({id:'excluded-line',type:'line',source:'excluded-area',paint:{'line-color':'#ad4c3d','line-width':2,'line-dasharray':[3,2]}});
+        const marker=document.createElement('div');marker.className='psu-marker';marker.textContent='ม.อ.';
+        new maplibregl.Marker({element:marker}).setLngLat([psu.lon,psu.lat]).setPopup(new maplibregl.Popup({offset:26}).setHTML('<strong>จุดอ้างอิง ม.อ. หาดใหญ่</strong><br>7.009108, 100.497210')).addTo(map);
+        candidatePoints.forEach(p=>{const el=document.createElement('div');el.className='candidate-marker';el.textContent=p.code;new maplibregl.Marker({element:el}).setLngLat([p.lon,p.lat]).setPopup(new maplibregl.Popup({offset:24,maxWidth:'350px'}).setHTML('<strong>อันดับ '+p.rank+' · '+p.name+'</strong><br>คะแนนรวม '+p.geo.score.toFixed(1)+' / 100<br>น้ำท่วม '+p.geo.flood.toFixed(2)+' · อาคารใน 500 ม. '+p.geo.buildings.toLocaleString('th-TH')+'<br>ระดับประชากร '+p.geo.population.toLocaleString('th-TH',{maximumFractionDigits:2})+' · ร้านกาแฟ '+p.geo.competitors+' ร้าน<br><small>ห่างจาก ม.อ. '+p.distance.toLocaleString('th-TH')+' ม. · '+p.type+'</small>')).addTo(map)});
+        const bounds=new maplibregl.LngLatBounds();ring(psu.lon,psu.lat,2100,32).forEach(c=>bounds.extend(c));map.fitBounds(bounds,{padding:40,duration:0});
+      });
+    })();
+  </script>
+</body>
+</html>
